@@ -17,11 +17,13 @@ M._mode_map = {
 
 M._mode = function() return string.lower(string.sub(vim.api.nvim_get_mode().mode, 1, 1)) end
 
+--- Returns the statusline highlight group name based on the current mode. (e.g., "%#SLModeNormal#")
 M.mode_hl = function()
 	local current = M._mode_map[M._mode()] or { name = ' UNKNOWN ', hl = '%#SLDefault#' }
 	return current.hl
 end
 
+--- Returns the first character of the current mode name. (e.g., 'n' for Normal, 'i' for Insert)
 M.mode = function()
 	local current = M._mode_map[M._mode()] or { name = ' UNKNOWN ', hl = '%#SLDefault#' }
 	return current.name
@@ -29,10 +31,12 @@ end
 
 ----------
 
+--- Returns the parent directory of the current buffer.
 M.dir = function() return vim.fn.expand('%:p:h:t') end
 
 ----------
 
+--- Returns the name of the current buffer.
 M.file = function()
 	local bt = vim.bo.buftype
 
@@ -62,6 +66,10 @@ M.col = function() return vim.fn.col('.') end
 
 _G.fileencoding_onclick = function() vim.cmd([[setlocal fileencoding=utf-8]]) end
 
+--- Returns the buffer's fileencoding.
+---
+--- Applies the 'SLSuspicious' highlight group if the encoding is not UTF-8.
+--- Clicking this area will change the file encoding to UTF-8.
 M.fileencoding = function()
 	local enc = vim.bo.fileencoding
 	if enc == '' then enc = 'utf-8' end
@@ -73,6 +81,10 @@ end
 
 _G.fileformat_onclick = function() vim.cmd([[setlocal fileformat=unix]]) end
 
+--- Returns the buffer's fileformat. (unix/dos/mac)
+---
+--- Applies the 'SLSuspicious' highlight group if the fileformat is not unix.
+--- Clicking this area will change the fileformat to unix.
 M.fileformat = function()
 	local fmt = vim.bo.fileformat
 	if fmt ~= 'unix' then fmt = '%#SLSuspicious#%@v:lua.fileformat_onclick@' .. fmt .. '%X%#SLDefault#' end
@@ -81,6 +93,7 @@ end
 
 ----------
 
+--- Returns the buffer's filetype.
 M.filetype = function()
 	local typ = vim.bo.filetype
 	if typ == '' then return 'type?' end
@@ -89,6 +102,7 @@ end
 
 ----------
 
+--- Returns a function that returns yesChar(highlighted with SLReadonly) or noChar.
 M.gen_readonly = function(yesChar, noChar)
 	return function()
 		local m = vim.bo.readonly
@@ -102,6 +116,7 @@ end
 
 ----------
 
+--- Returns a function that returns yesChar(highlighted with SLLocked) or noChar.
 M.gen_modifiable = function(yesChar, noChar)
 	return function()
 		local m = vim.bo.modifiable
@@ -115,6 +130,7 @@ end
 
 ----------
 
+--- Returns a function that returns yesChar(highlighted with SLModified) or noChar.
 M.gen_modified = function(yesChar, noChar)
 	return function()
 		local m = vim.bo.modified
@@ -137,6 +153,8 @@ local severities = {
 	{ severity = vim.diagnostic.severity.HINT, hl = '%#SLLspHint#' },
 }
 
+--- Returns a function that returns LSP diagnostic.
+--- @param severity_chars table severity to character table. { [vim.diagnostic.severity.ERROR] = '', ... }
 M.gen_lsp = function(severity_chars)
 	return function()
 		if severity_chars == nil then return '' end
