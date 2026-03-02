@@ -126,4 +126,37 @@ M.gen_modified = function(yesChar, noChar)
 	end
 end
 
+----------
+
+_G.lsp_onclick = function() vim.diagnostic.setqflist() end
+
+local severities = {
+	{ severity = vim.diagnostic.severity.ERROR, hl = '%#SLLspError#' },
+	{ severity = vim.diagnostic.severity.WARN, hl = '%#SLLspWarn#' },
+	{ severity = vim.diagnostic.severity.INFO, hl = '%#SLLspInfo#' },
+	{ severity = vim.diagnostic.severity.HINT, hl = '%#SLLspHint#' },
+}
+
+M.gen_lsp = function(severity_chars)
+	return function()
+		if severity_chars == nil then return '' end
+
+		local result = ''
+		for i = 1, #severities do
+			local s = severities[i]
+			local count = #vim.diagnostic.get(vim.fn.bufnr('%'), { severity = s.severity })
+			if count > 0 then
+				local char = severity_chars[s.severity] or ''
+				result = result .. ' ' .. s.hl .. char .. count .. '%#SLDefault#'
+			end
+		end
+
+		if result ~= '' then result = '%@v:lua.lsp_onclick@' .. result .. '%X' end
+
+		return result
+	end
+end
+
+----------
+
 return M

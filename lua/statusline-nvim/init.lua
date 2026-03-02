@@ -7,6 +7,7 @@ local c = require('statusline-nvim/components')
 M.count = 0
 M.prevMode = ''
 M._highlight = function(init)
+	local unused
 	if init then
 		M.config._highlights = nil
 		M.prevMode = ''
@@ -118,6 +119,10 @@ M.config = {
 		SLReadonly = { fg = '#dd0000' },
 		SLModified = { link = 'StatusLine' },
 		SLSuspicious = { fg = '#ee8888' },
+		SLLSPError = { link = 'DiagnosticError' },
+		SLLSPWarn = { link = 'DiagnosticWarn' },
+		SLLSPInfo = { link = 'DiagnosticInfo' },
+		SLLSPHint = { link = 'DiagnosticHint' },
 	},
 	alpha = 0.1,
 }
