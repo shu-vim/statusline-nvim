@@ -12,6 +12,14 @@ Neovim plugin to customize the statusline.
 return { "shu-vim/statusline-nvim" }
 ```
 
+with devicons
+```lua
+return {
+    "shu-vim/statusline-nvim"
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+}
+```
+
 ## Usage
 
 Enabled by default on startup.
@@ -78,6 +86,7 @@ return {
 ```lua
 return {
     "shu-vim/statusline-nvim",
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = function()
         local c = require('statusline-nvim/components')
 
