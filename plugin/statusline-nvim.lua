@@ -1,5 +1,5 @@
 vim.api.nvim_exec(
-    [[
+	[[
        augroup Statusline
        au!
        au WinEnter,BufEnter * set statusline=%!v:lua.require('statusline-nvim').active()
@@ -7,7 +7,7 @@ vim.api.nvim_exec(
        au ColorScheme * lua require('statusline-nvim')._highlight(true)
        augroup END
      ]],
-    false
+	false
 )
 vim.o.showmode = false
 
