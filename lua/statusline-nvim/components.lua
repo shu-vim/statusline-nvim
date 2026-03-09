@@ -94,13 +94,19 @@ end
 ----------
 
 --- Returns the buffer's filetype.
-local devicon_ok, devicon = pcall(require, 'nvim-web-devicons')
+local devicons_ok, devicons = pcall(require, 'nvim-web-devicons')
 M.filetype = function()
 	local typ = vim.bo.filetype
 	if typ == '' then
 		return 'type?'
-	elseif devicon_ok then
-		typ = (devicon.get_icon('', typ) or '') .. ' ' .. typ
+	elseif devicons_ok then
+		local icon = devicons.get_icon('', typ)
+		if icon == nil then
+			icon = ''
+		else
+			icon = icon .. ' '
+		end
+		typ = icon .. typ
 	end
 	return typ
 end
