@@ -1,5 +1,5 @@
 vim.api.nvim_exec(
-	[[
+  [[
        augroup Statusline
        au!
        au WinEnter,BufEnter * set statusline=%!v:lua.require('statusline-nvim').active()
@@ -7,8 +7,8 @@ vim.api.nvim_exec(
        au ColorScheme * lua require('statusline-nvim')._highlight(true)
        augroup END
      ]],
-	false
+  false
 )
 vim.o.showmode = false
 
--- vim: set et ft=lua sts=4 sw=4 ts=4 :
+-- vim: set et ft=lua sts=2 sw=2 ts=2 :
