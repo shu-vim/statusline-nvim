@@ -26,8 +26,7 @@ M._highlight = function(init)
 	if mode == M.prevMode then return end
 	M.prevMode = mode
 
-	local h = M.config._highlights
-	h = vim.tbl_deep_extend('force', {}, M.config._highlights)
+	local h = vim.tbl_deep_extend('force', {}, M.config._highlights)
 
 	local mode_hl = string.sub(c.mode_hl(), 3, -2)
 
