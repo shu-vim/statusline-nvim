@@ -188,6 +188,55 @@ end
 
 ----------
 
+M.gen_git_branch = function()
+  local executable = vim.fn.executable('git') == 1
+  if not executable then
+    return function() return '' end
+  end
+
+  local branch = ''
+  local unpushed = 0
+  local unpulled = 0
+
+  local group = vim.api.nvim_create_augroup('statusline-nvim.git.branch', { clear = true })
+  vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {
+    group = group,
+    callback = function()
+      local obj = vim.system({ 'git', 'branch', '--show-current' }, { text = true }):wait()
+      if obj.code ~= 0 then branch = '' end
+      branch = obj.stdout:gsub('\n', '')
+
+      unpushed = 0
+      if branch ~= '' then
+        obj = vim.system({ 'git', 'rev-list', '--count', '@{u}..HEAD' }, { text = true }):wait()
+        if obj.code ~= 0 then unpushed = 0 end
+        unpushed = tonumber(obj.stdout) or 0
+      end
+
+      unpulled = 0
+      if branch ~= '' then
+        obj = vim.system({ 'git', 'rev-list', '--count', 'HEAD..@{u}' }, { text = true }):wait()
+        if obj.code ~= 0 then unpulled = 0 end
+        unpulled = tonumber(obj.stdout) or 0
+      end
+    end,
+  })
+
+  return function()
+    if branch == '' then
+      return ''
+    else
+      local result = '%#SLGitBranch#' .. branch .. '%#SLDefault#'
+      if unpulled + unpushed ~= 0 then result = result .. ' ' end
+      if unpulled ~= 0 then result = result .. '%#SLGitUnpulled#⬇' .. unpulled .. '%#SLDefault#' end
+      if unpushed ~= 0 then result = result .. '%#SLGitUnpushed#⬆' .. unpushed .. '%#SLDefault#' end
+      return result .. ' '
+    end
+  end
+end
+
+----------
+
 return M
 
 -- vim: set et ft=lua sts=2 sw=2 ts=2 :

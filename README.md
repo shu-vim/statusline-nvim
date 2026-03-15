@@ -104,6 +104,7 @@ return {
                 c.mode,
                 ' ',
                 '%#SLDefault# ',
+                c.gen_git_branch(),
                 c.gen_modifiable('', '🔒'),
                 ' ',
                 '%#SLDir#',

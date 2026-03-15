@@ -121,6 +121,9 @@ M.config = {
     SLLSPWarn = { link = 'DiagnosticWarn' },
     SLLSPInfo = { link = 'DiagnosticInfo' },
     SLLSPHint = { link = 'DiagnosticHint' },
+    SLGitBranch = { fg = '#dddddd' },
+    SLGitUnpulled = { fg = '#ffff00' },
+    SLGitUnpushed = { fg = '#eeee00' },
   },
   alpha = 0.1,
 }
