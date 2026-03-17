@@ -202,6 +202,19 @@ M.gen_git_branch = function()
   vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {
     group = group,
     callback = function()
+      ---@type string
+      local path = vim.fn.expand('%:p')
+      local exclude_patterns = M.exclude_patterns or {}
+      for i = 1, #exclude_patterns do
+        if path:find(exclude_patterns[i]) then
+          vim.notify('excluded')
+          branch = ''
+          unpushed = 0
+          unpulled = 0
+          return
+        end
+      end
+
       local obj = vim.system({ 'git', 'branch', '--show-current' }, { text = true }):wait()
       if obj.code ~= 0 then branch = '' end
       branch = obj.stdout:gsub('\n', '')

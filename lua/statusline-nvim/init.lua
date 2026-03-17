@@ -55,6 +55,18 @@ M._highlight = function(init)
   end
 end
 
+local dirty_active = true
+local buildcache_active = ''
+local dirty_inactive = true
+local buildcache_inactive = ''
+
+M._dirty = function()
+  dirty_active = true
+  buildcache_active = ''
+  dirty_inactive = true
+  buildcache_inactive = ''
+end
+
 M._build = function(arr)
   local result = ''
   for i = 1, #arr do
@@ -68,13 +80,23 @@ M._build = function(arr)
 end
 
 M.active = function()
+  if not dirty_active then return buildcache_active end
+
+  buildcache_active = M._build(M.config.active)
+  dirty_active = false
+
   M._highlight()
-  return M._build(M.config.active)
+  return buildcache_active
 end
 
 M.inactive = function()
+  if not dirty_inactive then return buildcache_inactive end
+
+  buildcache_inactive = M._build(M.config.inactive)
+  dirty_inactive = false
+
   M._highlight()
-  return M._build(M.config.inactive)
+  return buildcache_inactive
 end
 
 M.config = {
