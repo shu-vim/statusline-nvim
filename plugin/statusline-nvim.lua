@@ -4,7 +4,8 @@ vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter', 'OptionSet', 'ModeChanged'
   group = group,
   callback = function()
     require('statusline-nvim')._dirty()
-    vim.o.statusline = "%!v:lua.require('statusline-nvim').active()"
+    local statusline = "%!v:lua.require('statusline-nvim').active()"
+    if vim.o.statusline ~= statusline then vim.o.statusline = statusline end
   end,
 })
 
@@ -12,7 +13,8 @@ vim.api.nvim_create_autocmd({ 'WinLeave', 'BufLeave' }, {
   group = group,
   callback = function()
     require('statusline-nvim')._dirty()
-    vim.wo.statusline = "%!v:lua.require('statusline-nvim').inactive()"
+    local statusline = "%!v:lua.require('statusline-nvim').inactive()"
+    if vim.wo.statusline ~= statusline then vim.wo.statusline = statusline end
   end,
 })
 
