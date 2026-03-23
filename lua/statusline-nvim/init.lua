@@ -4,7 +4,6 @@ local bit = require('bit')
 local hl = require('statusline-nvim/hl')
 local c = require('statusline-nvim/components')
 
-M.count = 0
 M.prevMode = ''
 M._highlight = function(init)
   if init then
@@ -14,7 +13,6 @@ M._highlight = function(init)
 
   if M.config._highlights == nil then
     M.config._highlights = {}
-    M.count = M.count + 1
     for k, v in pairs(M.config.highlights) do
       vim.api.nvim_set_hl(0, k, v)
       M.config._highlights[k] = hl.resolve(k, 'StatusLine')
@@ -49,7 +47,6 @@ M._highlight = function(init)
     ::continue::
   end
 
-  M.count = M.count + 1
   for k, v in pairs(h) do
     vim.api.nvim_set_hl(0, k, v)
   end
