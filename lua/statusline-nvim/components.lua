@@ -178,7 +178,7 @@ M.gen_lsp = function()
       local count = #vim.diagnostic.get(vim.fn.bufnr('%'), { severity = s.severity })
       if count > 0 then
         local char = s.sym or ''
-        result = result .. ' ' .. s.hl .. char .. count .. '%#SLDefault#'
+        result = result .. s.hl .. char .. count .. '%#SLDefault#'
       end
     end
 
