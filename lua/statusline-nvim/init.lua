@@ -145,7 +145,11 @@ M.config = {
     SLGitUnpushed = { fg = '#cccc00' },
   },
   symbols = {
-    SLGitBranch = '',
+    SLLSPError = ' ',
+    SLLSPWarn = ' ',
+    SLLSPInfo = ' ',
+    SLLSPHint = '󰌵 ',
+    SLGitBranch = ' ',
     SLGitUnpulled = '￬',
     SLGitUnpushed = '￪',
   },
