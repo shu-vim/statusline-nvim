@@ -142,7 +142,7 @@ M.config = {
     SLLSPHint = { link = 'DiagnosticHint' },
     SLGitBranch = { fg = '#dddddd' },
     SLGitUnpulled = { fg = '#ffff00' },
-    SLGitUnpushed = { fg = '#eeee00' },
+    SLGitUnpushed = { fg = '#cccc00' },
   },
   alpha = 0.1,
 }
