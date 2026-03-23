@@ -163,10 +163,10 @@ M.gen_lsp = function()
     local statusline = require('statusline-nvim')
 
     local severities = {
-      { severity = vim.diagnostic.severity.ERROR, hl = '%#SLLspError#', sym = statusline.config.symbols.SLLSPError },
-      { severity = vim.diagnostic.severity.WARN, hl = '%#SLLspWarn#', sym = statusline.config.symbols.SLLSPWarn },
-      { severity = vim.diagnostic.severity.INFO, hl = '%#SLLspInfo#', sym = statusline.config.symbols.SLLSPInfo },
-      { severity = vim.diagnostic.severity.HINT, hl = '%#SLLspHint#', sym = statusline.config.symbols.SLLSPHint },
+      { severity = vim.diagnostic.severity.ERROR, hl = '%#SLLspError#', sym = statusline.config.symbols.LSPError },
+      { severity = vim.diagnostic.severity.WARN, hl = '%#SLLspWarn#', sym = statusline.config.symbols.LSPWarn },
+      { severity = vim.diagnostic.severity.INFO, hl = '%#SLLspInfo#', sym = statusline.config.symbols.LSPInfo },
+      { severity = vim.diagnostic.severity.HINT, hl = '%#SLLspHint#', sym = statusline.config.symbols.LSPHint },
     }
 
     local result = ''
@@ -239,13 +239,13 @@ M.gen_git_branch = function()
     if branch == '' then
       return ''
     else
-      local result = '%#SLGitBranch#' .. statusline.config.symbols.SLGitBranch .. branch .. '%#SLDefault#'
+      local result = '%#SLGitBranch#' .. statusline.config.symbols.GitBranch .. branch .. '%#SLDefault#'
       if unpulled + unpushed ~= 0 then result = result .. ' ' end
       if unpulled ~= 0 then
-        result = result .. '%#SLGitUnpulled#' .. statusline.config.symbols.SLGitUnpulled .. unpulled .. '%#SLDefault#'
+        result = result .. '%#SLGitUnpulled#' .. statusline.config.symbols.GitUnpulled .. unpulled .. '%#SLDefault#'
       end
       if unpushed ~= 0 then
-        result = result .. '%#SLGitUnpushed#' .. statusline.config.symbols.SLGitUnpushed .. unpushed .. '%#SLDefault#'
+        result = result .. '%#SLGitUnpushed#' .. statusline.config.symbols.GitUnpushed .. unpushed .. '%#SLDefault#'
       end
       return result .. ' '
     end
