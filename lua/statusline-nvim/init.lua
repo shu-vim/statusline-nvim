@@ -113,6 +113,8 @@ M.config = {
     c.gen_modified(),
     c.gen_modifiable(),
     c.gen_readonly(),
+    ' ',
+    c.gen_lsp(),
     '%=',
     c.fileencoding,
     ' | ',
