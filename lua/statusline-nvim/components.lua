@@ -241,8 +241,8 @@ M.gen_git_branch = function()
     else
       local result = '%#SLGitBranch#' .. branch .. '%#SLDefault#'
       if unpulled + unpushed ~= 0 then result = result .. ' ' end
-      if unpulled ~= 0 then result = result .. '%#SLGitUnpulled#⬇' .. unpulled .. '%#SLDefault#' end
-      if unpushed ~= 0 then result = result .. '%#SLGitUnpushed#⬆' .. unpushed .. '%#SLDefault#' end
+      if unpulled ~= 0 then result = result .. '%#SLGitUnpulled#￬' .. unpulled .. '%#SLDefault#' end
+      if unpushed ~= 0 then result = result .. '%#SLGitUnpushed#￪' .. unpushed .. '%#SLDefault#' end
       return result .. ' '
     end
   end
