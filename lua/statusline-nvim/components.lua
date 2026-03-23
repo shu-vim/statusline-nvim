@@ -236,13 +236,18 @@ M.gen_git_branch = function()
   })
 
   return function()
+    local statusline = require('statusline-nvim')
     if branch == '' then
       return ''
     else
-      local result = '%#SLGitBranch#' .. branch .. '%#SLDefault#'
+      local result = '%#SLGitBranch#' .. statusline.config.symbols.SLGitBranch .. branch .. '%#SLDefault#'
       if unpulled + unpushed ~= 0 then result = result .. ' ' end
-      if unpulled ~= 0 then result = result .. '%#SLGitUnpulled#￬' .. unpulled .. '%#SLDefault#' end
-      if unpushed ~= 0 then result = result .. '%#SLGitUnpushed#￪' .. unpushed .. '%#SLDefault#' end
+      if unpulled ~= 0 then
+        result = result .. '%#SLGitUnpulled#' .. statusline.config.symbols.SLGitUnpulled .. unpulled .. '%#SLDefault#'
+      end
+      if unpushed ~= 0 then
+        result = result .. '%#SLGitUnpushed#' .. statusline.config.symbols.SLGitUnpushed .. unpushed .. '%#SLDefault#'
+      end
       return result .. ' '
     end
   end

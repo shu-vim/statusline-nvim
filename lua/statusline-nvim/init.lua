@@ -144,6 +144,11 @@ M.config = {
     SLGitUnpulled = { fg = '#ffff00' },
     SLGitUnpushed = { fg = '#cccc00' },
   },
+  symbols = {
+    SLGitBranch = '',
+    SLGitUnpulled = '￬',
+    SLGitUnpushed = '￪',
+  },
   alpha = 0.1,
 }
 
