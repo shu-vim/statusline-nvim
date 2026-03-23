@@ -131,8 +131,8 @@ end
 M.gen_modifiable = function(yesChar, noChar)
   return function()
     local m = vim.bo.modifiable
-    if m then
       return '%#SLLocked#' .. yesChar .. '%#SLDefault#'
+    if not m then
     else
       return noChar
     end
