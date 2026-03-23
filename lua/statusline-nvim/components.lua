@@ -114,13 +114,14 @@ end
 ----------
 
 --- Returns a function that returns yesChar(highlighted with SLReadonly) or noChar.
-M.gen_readonly = function(yesChar, noChar)
+M.gen_readonly = function()
   return function()
+    local statusline = require('statusline-nvim')
     local m = vim.bo.readonly
     if m then
-      return '%#SLReadonly#' .. yesChar .. '%#SLDefault#'
+      return '%#SLReadonly#' .. statusline.config.symbols.Readonly .. '%#SLDefault#'
     else
-      return noChar
+      return ''
     end
   end
 end
@@ -128,13 +129,14 @@ end
 ----------
 
 --- Returns a function that returns yesChar(highlighted with SLLocked) or noChar.
-M.gen_modifiable = function(yesChar, noChar)
+M.gen_modifiable = function()
   return function()
+    local statusline = require('statusline-nvim')
     local m = vim.bo.modifiable
-      return '%#SLLocked#' .. yesChar .. '%#SLDefault#'
     if not m then
+      return '%#SLLocked#' .. statusline.config.symbols.NoModifiable .. '%#SLDefault#'
     else
-      return noChar
+      return ''
     end
   end
 end
@@ -142,13 +144,14 @@ end
 ----------
 
 --- Returns a function that returns yesChar(highlighted with SLModified) or noChar.
-M.gen_modified = function(yesChar, noChar)
+M.gen_modified = function()
   return function()
+    local statusline = require('statusline-nvim')
     local m = vim.bo.modified
     if m then
-      return '%#SLModified#' .. yesChar .. '%#SLDefault#'
+      return '%#SLModified#' .. statusline.config.symbols.Modified .. '%#SLDefault#'
     else
-      return noChar
+      return ''
     end
   end
 end
