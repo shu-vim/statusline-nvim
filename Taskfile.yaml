@@ -2,10 +2,14 @@ version: '3'
 
 tasks:
   default:
-    deps: [style]
-    desc: --list-all を実行する。
+    deps:
+    - check
+    - style
     cmds:
       - task --list-all
   style:
       cmds:
         - stylua .
+  check:
+      cmds:
+        - luacheck .
