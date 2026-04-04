@@ -4,9 +4,7 @@ vim.api.nvim_create_autocmd({ 'FocusGained', 'WinEnter', 'BufEnter', 'BufModifie
   group = group,
   callback = function()
     local statusline = require('statusline-nvim').active()
-    --vim.schedule(function()
     vim.o.statusline = statusline
-    --end)
   end,
 })
 
