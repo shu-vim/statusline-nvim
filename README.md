@@ -43,6 +43,8 @@ return {
         ' ',
         '%#SLDefault# ',
         ' ',
+        c.gen_git_branch(),
+        ' ',
         '%#SLDir#',
         c.dir,
         '/',
