@@ -1,6 +1,6 @@
 local group = vim.api.nvim_create_augroup('statusline-nvim', { clear = true })
 
-vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter', 'OptionSet', 'ModeChanged' }, {
+vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter', 'BufModifiedSet', 'OptionSet', 'ModeChanged' }, {
   group = group,
   callback = function()
     local statusline = require('statusline-nvim').active()
