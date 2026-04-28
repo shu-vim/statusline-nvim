@@ -64,14 +64,30 @@ M._build = function(arr)
   return result
 end
 
-M.active = function()
-  M._highlight()
-  return M._build(M.config.active)
-end
+M.set_statusline = function(buf, curr_win)
+  if vim.o.laststatus == 0 then return end
 
-M.inactive = function()
   M._highlight()
-  return M._build(M.config.inactive)
+  --vim.notify('buf ' .. buf .. ':', 'debug')
+  for _, w in ipairs(vim.fn['win_findbuf'](buf)) do
+    if vim.api.nvim_win_get_config(w).relative ~= '' then
+      --do not set statusline
+    elseif w == curr_win then
+      --vim.notify(
+      --  '  win ' .. w .. ' is curr (' ..
+      --  vim.api.nvim_get_option_value('statusline', { scope = 'local', win = w }) .. ')',
+      --  'debug')
+      vim.api.nvim_set_option_value('statusline', M._build(M.config.active), { scope = 'local', win = w })
+    else
+      --vim.notify(
+      --  '  win ' ..
+      --  w .. ' is NOT curr (' ..
+      --  vim.api.nvim_get_option_value('statusline', { scope = 'local', win = w }) .. ')',
+      --  'debug')
+      vim.api.nvim_set_option_value('statusline', M._build(M.config.inactive), { scope = 'local', win = w })
+    end
+  end
+  --return M._build(M.config.active)
 end
 
 M.config = {
