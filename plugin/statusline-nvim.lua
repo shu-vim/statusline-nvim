@@ -2,18 +2,42 @@ local group = vim.api.nvim_create_augroup('statusline-nvim', { clear = true })
 
 vim.api.nvim_create_autocmd({
   'BufEnter',
-  'BufLeave',
-  'BufModifiedSet',
   'CursorHold',
   'DirChanged',
   'FocusGained',
   'ModeChanged',
-  'OptionSet',
+  'TextChanged',
   'WinEnter',
-  'WinLeave',
 }, {
   group = group,
   callback = function(ev) require('statusline-nvim').set_statusline(ev.buf, vim.api.nvim_get_current_win()) end,
+})
+
+vim.api.nvim_create_autocmd({
+  'BufLeave',
+  'WinLeave',
+}, {
+  group = group,
+  callback = function(ev) require('statusline-nvim').set_statusline(ev.buf, -1) end,
+})
+
+vim.api.nvim_create_autocmd({
+  'User',
+}, {
+  group = group,
+  pattern = 'StatulineNvimUpdate',
+  callback = function(ev) require('statusline-nvim').set_statusline(ev.buf, vim.api.nvim_get_current_win()) end,
+})
+
+vim.api.nvim_create_autocmd({
+  'OptionSet',
+}, {
+  group = group,
+  callback = function()
+    vim.api.nvim_exec_autocmds('User', {
+      pattern = 'StatulineNvimUpdate',
+    })
+  end,
 })
 
 vim.api.nvim_create_autocmd('ColorScheme', {
